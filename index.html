@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizzatore Immagini</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            display: none; /* Nascosta di default finché JS non la carica */
+        }
+        .error {
+            font-family: sans-serif;
+            color: #ff3333;
+        }
+    </style>
+</head>
+<body>
+
+    <img id="target-image" src="" alt="Immagine Centrata">
+    <div id="error-message" class="error" style="display: none;">Immagine non trovata</div>
+
+    <script>
+        // 1. Prendiamo l'ultima parte dell'URL (es. /foto1 diventa "foto1")
+        const path = window.location.pathname.replace(/^\/|\/$/g, '');
+
+        // 2. Mappiamo i vari URL alle rispettive immagini
+        const pagineConfig = {
+            'foto1': 'immagini/foto1.jpg',
+            'foto2': 'immagini/foto2.jpg',
+            'foto3': 'immagini/foto3.jpg',
+            'foto4': 'immagini/foto4.jpg',
+            'foto5': 'immagini/foto5.jpg',
+            'foto6': 'immagini/foto6.jpg',
+            'foto7': 'immagini/foto7.jpg'
+        };
+
+        const imgElement = document.getElementById('target-image');
+        const errorElement = document.getElementById('error-message');
+
+        // 3. Controlliamo se l'URL esiste nella nostra lista
+        if (pagineConfig[path]) {
+            imgElement.src = pagineConfig[path];
+            imgElement.style.display = 'block';
+            document.title = "Immagine - " + path;
+        } else {
+            // Se l'utente scrive un URL a caso (es. /ciao) mostra un errore
+            errorElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
